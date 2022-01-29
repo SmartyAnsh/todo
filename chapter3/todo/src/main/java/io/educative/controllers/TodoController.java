@@ -25,49 +25,6 @@ public class TodoController {
         this.todoTypeService = todoTypeService;
     }
 
-    @GetMapping("/hello")
-    String hello() {
-        return "Hello World!";
-    }
-
-    /*
-    @GetMapping("/get")
-    List<Todo> findAll() {
-        return todoService.findAll();
-    }
-
-    @GetMapping("/todo/{id}")
-    Todo find(@PathVariable("id") long id) {
-        Optional<Todo> todo = todoService.findById(id);
-        return todo.get();
-    }
-
-    @PostMapping("/todo")
-    @LogMethodDetails
-    Todo newTodo(@Valid @RequestBody Todo todo) {
-        int x = 1/0;
-        return todoService.create(todo);
-    }
-
-    @GetMapping("/readDone")
-    Collection<Todo> readAllDone() {
-        return todoService.readAllDone();
-    }
-
-    @GetMapping("/readByName")
-    Collection<Todo> readAllByName(@RequestParam String name) {
-        return todoService.readAllByName(name);
-    }
-
-    @GetMapping( "/fetchTodo/{id}")
-    public ResponseEntity<Todo> getTodoByUd (@PathVariable("id") long id) {
-        Todo todo = todoService.findById(id).get();
-        return ResponseEntity.ok()
-                .eTag(Long.toString(todo.getLastUpdated().getTime()))
-                .body(todo);
-    }*/
-
-
     @PostMapping
     public Todo create(@Valid @RequestBody Todo todo) {
         return todoService.create(todo);
@@ -82,12 +39,6 @@ public class TodoController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
-
-    /*@GetMapping("/{id}")
-    ResponseEntity readTodo(@PathVariable("id") Long id) {
-        Todo todo = todoService.findById(id);
-        return new ResponseEntity<Todo>(todo, HttpStatus.OK);
-    }*/
 
     @PutMapping
     public Todo updateTodo(@RequestBody Todo todo) {

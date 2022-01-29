@@ -7,18 +7,13 @@ import io.educative.utils.validators.TitleConstraint;
 import lombok.Data;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.AbstractAggregateRoot;
-import org.springframework.data.domain.AfterDomainEventPublication;
-import org.springframework.data.domain.DomainEvents;
-import org.springframework.data.rest.core.event.BeforeSaveEvent;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity

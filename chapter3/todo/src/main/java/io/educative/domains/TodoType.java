@@ -1,15 +1,12 @@
 package io.educative.domains;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.educative.utils.adapters.xml.DataFormatXmlAdapter;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -31,7 +28,6 @@ public class TodoType {
     @Size(min = 4, max = 10)
     private String code;
 
-    //@JsonIgnore
     @XmlTransient
     private String description;
 

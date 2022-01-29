@@ -23,6 +23,11 @@ public class TodoTypeController {
         this.todoTypeService = todoTypeService;
     }
 
+    @GetMapping("/hello")
+    public String helloWorld() {
+        return "Hello World! from Educative course 'REST APIs with Spring, JPA, and Springfox'";
+    }
+
     @PostMapping(consumes = {"application/json", "application/xml"}, produces = {"application/json", "application/xml"})
     public TodoType create(@RequestBody TodoType todoType) {
         return todoTypeService.create(todoType);

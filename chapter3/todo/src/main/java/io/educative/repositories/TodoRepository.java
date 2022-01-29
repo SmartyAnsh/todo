@@ -17,8 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-//@RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
-//@RestResource
 public interface TodoRepository extends PagingAndSortingRepository<Todo, Long> {
 
     @Query("SELECT t FROM Todo t WHERE t.done = 1")

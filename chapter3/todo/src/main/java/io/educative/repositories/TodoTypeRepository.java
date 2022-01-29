@@ -11,10 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-//@RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
 public interface TodoTypeRepository extends PagingAndSortingRepository<TodoType, String> {
-
-    //List<TodoType> findAllByDateCreatedAfter(Date dateCreated);
 
     List<TodoType> findAllByDateCreatedAfter(Date dateCreated, Pageable pageable);
 
