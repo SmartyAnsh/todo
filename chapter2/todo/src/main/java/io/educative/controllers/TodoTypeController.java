@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/todoType")
 public class TodoTypeController {
 
-    @Autowired
     private TodoTypeService todoTypeService;
+
+    @Autowired
+    public TodoTypeController(TodoTypeService todoTypeService) {
+        this.todoTypeService = todoTypeService;
+    }
 
     @GetMapping("/hello")
     public String helloWorld() {
