@@ -1,8 +1,6 @@
 package io.educative.controllers;
 
-import io.educative.domains.Todo;
 import io.educative.domains.TodoType;
-import io.educative.services.TodoService;
 import io.educative.services.TodoTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
