@@ -1,17 +1,20 @@
 package io.educative.services;
 
 import io.educative.domains.Todo;
+import io.educative.events.TodoEvent;
 import io.educative.repositories.TodoRepository;
 import io.educative.repositories.TodoTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
-import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.*;
@@ -19,62 +22,15 @@ import java.util.*;
 @Service
 public class TodoService {
 
-    private static Map<Long, Todo> todoCollection = new HashMap<>();
-    private static long idCount = 1;
-
     private TodoRepository todoRepository;
+    private TodoTypeRepository todoTypeRepository;
     private Validator validator;
-    private ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public TodoService(TodoRepository todoRepository, Validator validator, ApplicationEventPublisher eventPublisher) {
+    public TodoService(TodoRepository todoRepository, TodoTypeRepository todoTypeRepository, Validator validator) {
         this.todoRepository = todoRepository;
+        this.todoTypeRepository = todoTypeRepository;
         this.validator = validator;
-        this.eventPublisher = eventPublisher;
-    }
-
-    /*public Todo create(Todo todo) {
-        todo.setId(idCount);
-        todoCollection.put(idCount, todo);
-        idCount++;
-        return todo;
-    }
-
-    public Todo findById(Long id) {
-        return todoCollection.get(id);
-    }
-
-    public Todo update(Todo todo) {
-        todo.setLastUpdated(new Date());
-        if (todo.isDone()) {
-            todo.setDateDone(new Date());
-        }
-        todoCollection.put(todo.getId(), todo);
-        return todo;
-    }
-
-    public void deleteById(Long id) throws Exception {
-        if (todoCollection.remove(id) == null) {
-            throw new Exception("Id doesn't exist");
-        }
-    }*/
-
-    /*public List<Todo> findAll() {
-        Sort idDesc = Sort.by(Sort.Direction.DESC, "id");
-        int pageNumber = 0;
-        int numOfRecords = 2;
-        Pageable pageRequest = PageRequest.of(pageNumber, numOfRecords, idDesc);
-        Page<Todo> todoPages = todoRepository.findAll(pageRequest);
-        List<Todo> todos = todoPages.getContent();
-        return todos;
-    }*/
-
-    public List<Todo> findAll(String sort, Sort.Direction order, int pageNumber, int numOfRecords) {
-        Sort idDesc = Sort.by(order, sort);
-        Pageable pageRequest = PageRequest.of(pageNumber, numOfRecords, idDesc);
-        Page<Todo> todoPages = todoRepository.findAll(pageRequest);
-        List<Todo> todos = todoPages.getContent();
-        return todos;
     }
 
     @Transactional
@@ -84,9 +40,19 @@ public class TodoService {
             System.out.println(violation.getMessage());
         }
         if (violations.size() < 1) {
+            todo.afterSave();
             todoRepository.save(todo);
         }
         return todo;
+    }
+
+    public Todo findById(Long id) {
+        Optional<Todo> todoResult = todoRepository.findById(id);
+        if (todoResult.isPresent()) {
+            return todoResult.get();
+        } else {
+            return null;
+        }
     }
 
     public Todo update(Todo todo) {
@@ -105,27 +71,22 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
-    public Collection<Todo> readAllDone() {
-        return todoRepository.findAllDone();
+    public List<Todo> findAll(String sort, Sort.Direction order, int pageNumber, int numOfRecords) {
+        Sort idDesc = Sort.by(order, sort);
+        Pageable pageRequest = PageRequest.of(pageNumber, numOfRecords, idDesc);
+        Page<Todo> todoPages = todoRepository.findAll(pageRequest);
+        List<Todo> todos = todoPages.getContent();
+        return todos;
     }
 
-    public List<Todo> readAllByTitle(String title) {
-        return todoRepository.findAllTitle(title);
+    @EventListener
+    public void handleSuccessful(TodoEvent event) {
+        System.out.println("===== Handling TodoEvent 1====");
     }
 
-    public Todo findById(Long id) {
-        Optional<Todo> todoResult = todoRepository.findById(id);
-        if (todoResult.isPresent()) {
-            return todoResult.get();
-        } else {
-            return null;
-        }
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleTodoEvent(TodoEvent event) {
+        System.out.println("===== Handling TodoEvent 2====");
     }
 
-    public List<Todo> findAllByDone() {
-        //return (List<Todo>) todoRepository.findAllByDone(true, Sort.by(Sort.Direction.DESC, "id"));
-        Pageable firstPageWithTwoElements = PageRequest.of(0, 2, Sort.by(Sort.Direction.DESC, "id"));
-
-        return (List<Todo>) todoRepository.findAllByDone(true, firstPageWithTwoElements);
-    }
 }
