@@ -11,9 +11,9 @@ import java.util.Date;
 
 @Data
 @JsonPropertyOrder(alphabetic = true)
-@XmlRootElement(name="type")
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "code", "dateCreated", "lastUpdated" })
+@XmlType(propOrder = {"code", "dateCreated", "lastUpdated"})
 public class TodoType {
 
     private String code;

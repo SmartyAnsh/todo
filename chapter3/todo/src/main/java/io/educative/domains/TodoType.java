@@ -16,7 +16,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@XmlRootElement(name = "type")
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = {"code", "dateCreated", "lastUpdated"})
 @JsonPropertyOrder({"description", "code"})
