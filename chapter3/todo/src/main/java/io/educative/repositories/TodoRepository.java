@@ -1,8 +1,6 @@
 package io.educative.repositories;
 
 import io.educative.domains.Todo;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,21 +10,22 @@ import java.util.List;
 @Repository
 public interface TodoRepository extends PagingAndSortingRepository<Todo, Long> {
 
-    @Query("SELECT t FROM Todo t WHERE t.done = true")
-    List<Todo> readAllDone();
+    Todo findByTitle(String title);
 
-    List<Todo> findAllDone();
+    Todo findByDateCreatedGreaterThanEqual(Date dateCreated);
 
-    List<Todo> findAllTitle(String title);
+    Todo findByDoneAndDateDone(Boolean done, Date dateDone);
 
-    List<Todo> findAllByDone(Boolean done, Pageable pageable);
+    List<Todo> findAllByDone(Boolean done);
 
-    List<Todo> findAllByDoneAndDateDoneAfter(Boolean done, Date dateDone, Pageable pageable);
-
-    List<Todo> findAllByDateCreatedAfter(Date dateCreated, Pageable pageable);
+    List<Todo> findAllByDateCreatedAfter(Date dateCreated);
 
     long countAllByDone(Boolean done);
 
+    long countAllByDateCreatedGreaterThanAndDueDate(Date dateCreated, Date dueDate);
+
     long deleteAllByDone(Boolean done);
+
+    List<Todo> findAllByDoneAndDateDoneAfter(Boolean done, Date dateDone);
 
 }

@@ -3,7 +3,7 @@ package io.educative.domains;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.educative.events.TodoEvent;
+import io.educative.events.TodoCreationEvent;
 import io.educative.utils.validators.TitleConstraint;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -57,6 +57,6 @@ public class Todo extends AbstractAggregateRoot<Todo> {
     private TodoType type;
 
     public void afterSave() {
-        registerEvent(new TodoEvent());
+        registerEvent(new TodoCreationEvent());
     }
 }

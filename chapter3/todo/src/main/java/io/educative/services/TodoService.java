@@ -1,7 +1,7 @@
 package io.educative.services;
 
 import io.educative.domains.Todo;
-import io.educative.events.TodoEvent;
+import io.educative.events.TodoCreationEvent;
 import io.educative.repositories.TodoRepository;
 import io.educative.repositories.TodoTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,14 +79,14 @@ public class TodoService {
         return todos;
     }
 
-    @EventListener
-    public void handleSuccessful(TodoEvent event) {
-        System.out.println("===== Handling TodoEvent 1====");
-    }
+    /*@EventListener
+    public void handleTodoCreationEvent(TodoCreationEvent event) {
+        System.out.println("Handle TodoCreationEvent");
+    }*/
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleTodoEvent(TodoEvent event) {
-        System.out.println("===== Handling TodoEvent 2====");
+    public void handleTodoCreationEvent(TodoCreationEvent event) {
+        System.out.println("Handle TodoCreationEvent");
     }
 
 }
