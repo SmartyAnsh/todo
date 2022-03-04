@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 @Aspect
 @Component
-public class CommonAspect {
+public class LoggingAspect {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -37,7 +37,6 @@ public class CommonAspect {
     }
 
     @AfterThrowing(value = "@annotation(io.educative.utils.aop.LogMethodDetails)", throwing = "ex")
-    //@AfterThrowing(value = "execution(* io.educative.controllers.TodoController.newTodo(..))", throwing = "ex")
     public void logException(JoinPoint joinPoint, Exception ex) throws Throwable {
         logger.error("Exception in executing " + joinPoint.getSignature() + " : " + ex.getMessage());
     }
