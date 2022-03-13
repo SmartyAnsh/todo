@@ -17,6 +17,8 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -71,11 +73,13 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
-    public List<Todo> findAll(String sort, Sort.Direction order, int pageNumber, int numOfRecords) {
+    public List<Todo> findAll(String sort, Sort.Direction order, int pageNumber, int numOfRecords) throws ParseException {
         Sort idDesc = Sort.by(order, sort);
         Pageable pageRequest = PageRequest.of(pageNumber, numOfRecords, idDesc);
         Page<Todo> todoPages = todoRepository.findAll(pageRequest);
-        List<Todo> todos = todoPages.getContent();
+        //List<Todo> todos = todoPages.getContent();
+
+        List<Todo> todos = todoRepository.fetchTodos(new SimpleDateFormat("dd/MM/yyyy").parse("09/01/2022"), new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2022"));
         return todos;
     }
 

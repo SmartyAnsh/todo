@@ -29,4 +29,7 @@ public interface TodoRepository extends PagingAndSortingRepository<Todo, Long> {
 
     long deleteAllByDone(Boolean done);
 
+    @Query("SELECT t FROM Todo t WHERE t.dateCreated >= ?1 and t.dueDate >= ?2")
+    List<Todo> fetchTodos(Date dateCreated, Date dueDate);
+
 }

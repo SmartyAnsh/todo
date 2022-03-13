@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -59,7 +60,7 @@ public class TodoController {
 
     @GetMapping()
     @LogMethodDetails
-    public List<Todo> findAll(@RequestParam String sort, @RequestParam String order, @RequestParam int pageNumber, @RequestParam int numOfRecords) {
+    public List<Todo> findAll(@RequestParam String sort, @RequestParam String order, @RequestParam int pageNumber, @RequestParam int numOfRecords) throws ParseException {
         return todoService.findAll(sort, Sort.Direction.fromString(order), pageNumber, numOfRecords);
     }
 
