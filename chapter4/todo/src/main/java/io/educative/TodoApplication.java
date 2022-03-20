@@ -23,7 +23,7 @@ public class TodoApplication {
 
             @Override
             public EntityModel<Todo> process(EntityModel<Todo> model) {
-                model.add(Link.of("http://localhost:8080/todoTypes", "types"));
+                model.add(Link.of("http://localhost:8080/todo/todoTypes", "types"));
                 return model;
             }
         };

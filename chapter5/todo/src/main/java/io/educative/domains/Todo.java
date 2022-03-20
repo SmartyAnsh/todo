@@ -3,7 +3,6 @@ package io.educative.domains;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.educative.events.TodoEvent;
 import io.educative.utils.validators.TitleConstraint;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,18 +10,11 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@NamedQuery(name = "Todo.findAllDone", query = "SELECT t FROM Todo t WHERE t.done = true")
-@NamedQuery(name = "Todo.findAllTitle", query = "SELECT t FROM Todo t WHERE t.title = ?1")
-@XmlRootElement(name = "todo")
-@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Todo extends AbstractAggregateRoot<Todo> {
 
     @Id
@@ -55,8 +47,4 @@ public class Todo extends AbstractAggregateRoot<Todo> {
     @ManyToOne
     @JsonProperty("type")
     private TodoType type;
-
-    public void afterSave() {
-        registerEvent(new TodoEvent());
-    }
 }

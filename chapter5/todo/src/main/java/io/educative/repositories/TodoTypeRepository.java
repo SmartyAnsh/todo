@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface TodoTypeRepository extends PagingAndSortingRepository<TodoType, String> {
 
-    List<TodoType> findAllByDateCreatedAfter(Date dateCreated, Pageable pageable);
-
 }

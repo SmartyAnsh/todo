@@ -1,25 +1,23 @@
 package io.educative.services;
 
 import io.educative.domains.Todo;
-import io.educative.events.TodoEvent;
 import io.educative.repositories.TodoRepository;
 import io.educative.repositories.TodoTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class TodoService {
@@ -42,7 +40,6 @@ public class TodoService {
             System.out.println(violation.getMessage());
         }
         if (violations.size() < 1) {
-            todo.afterSave();
             todoRepository.save(todo);
         }
         return todo;
@@ -77,20 +74,8 @@ public class TodoService {
         Sort idDesc = Sort.by(order, sort);
         Pageable pageRequest = PageRequest.of(pageNumber, numOfRecords, idDesc);
         Page<Todo> todoPages = todoRepository.findAll(pageRequest);
-        //List<Todo> todos = todoPages.getContent();
-
-        List<Todo> todos = todoRepository.fetchTodos(new SimpleDateFormat("dd/MM/yyyy").parse("09/01/2022"), new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2022"));
+        List<Todo> todos = todoPages.getContent();
         return todos;
-    }
-
-    @EventListener
-    public void handleSuccessful(TodoEvent event) {
-        System.out.println("===== Handling TodoEvent 1====");
-    }
-
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleTodoEvent(TodoEvent event) {
-        System.out.println("===== Handling TodoEvent 2====");
     }
 
 }
