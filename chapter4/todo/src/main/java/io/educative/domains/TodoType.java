@@ -25,7 +25,7 @@ public class TodoType {
 
     @Id
     @NotBlank
-    @Size(min = 4, max = 10)
+    @Size(min = 4, max = 12)
     private String code;
 
     @XmlTransient

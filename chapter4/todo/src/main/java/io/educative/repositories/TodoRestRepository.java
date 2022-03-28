@@ -1,7 +1,6 @@
 package io.educative.repositories;
 
 import io.educative.domains.Todo;
-import io.educative.domains.TodoType;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

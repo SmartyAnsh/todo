@@ -30,11 +30,17 @@ public class DataLoader implements ApplicationRunner {
         personalType.setDescription("Todo for Personal Work");
         todoTypeRepository.save(personalType);
 
+        TodoType professionalType = new TodoType();
+        professionalType.setCode("PROFESSIONAL");
+        professionalType.setDescription("Todo for Professional Work");
+        todoTypeRepository.save(professionalType);
+
         Todo todo1 = new Todo();
         todo1.setTitle("Do Laundry");
         todo1.setDescription("laundry...");
         todo1.setDateCreated(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("09/01/2022 15:20"));
         todo1.setDueDate(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("10/01/2022 16:00"));
+        todo1.setType(personalType);
         todoRepository.save(todo1);
 
         Todo todo2 = new Todo();
@@ -42,6 +48,7 @@ public class DataLoader implements ApplicationRunner {
         todo2.setDescription("Pay electricity bill...");
         todo2.setDateCreated(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("10/01/2022 15:20"));
         todo2.setDueDate(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("11/01/2022 16:00"));
+        todo2.setType(personalType);
         todoRepository.save(todo2);
 
     }

@@ -30,7 +30,6 @@ public class TodoRestController {
     public @ResponseBody ResponseEntity<?> todoTypes() {
         CollectionModel<TodoType> resources = CollectionModel.of(todoTypeRepository.findAll());
         resources.add(linkTo(methodOn(TodoRestController.class).todoTypes()).withSelfRel());
-        resources.add(linkTo(methodOn(TodoRestController.class).getTodos()).withRel("getTodos"));
         return ResponseEntity.ok(resources);
     }
 
