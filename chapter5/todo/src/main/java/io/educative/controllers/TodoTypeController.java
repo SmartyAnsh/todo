@@ -2,6 +2,7 @@ package io.educative.controllers;
 
 import io.educative.domains.TodoType;
 import io.educative.services.TodoTypeService;
+import io.educative.utils.aop.AuditLoggable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class TodoTypeController {
 
     @PostMapping(consumes = {"application/json", "application/xml"}, produces = {"application/json", "application/xml"})
     public TodoType create(@RequestBody @Valid TodoType todoType) {
+        ((AuditLoggable)todoTypeService).auditLog(todoType, "INSERT");
         return todoTypeService.create(todoType);
     }
 
@@ -44,6 +46,7 @@ public class TodoTypeController {
 
     @PutMapping
     public TodoType updateTodo(@RequestBody TodoType todoType) {
+        ((AuditLoggable)todoTypeService).auditLog(todoType, "UPDATE");
         return todoTypeService.update(todoType);
     }
 

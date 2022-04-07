@@ -3,6 +3,7 @@ package io.educative.controllers;
 import io.educative.domains.Todo;
 import io.educative.services.TodoService;
 import io.educative.services.TodoTypeService;
+import io.educative.utils.aop.AuditLoggable;
 import io.educative.utils.aop.LogMethodDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -29,6 +30,7 @@ public class TodoController {
 
     @PostMapping
     public Todo create(@Valid @RequestBody Todo todo) {
+        ((AuditLoggable)todoService).auditLog(todo, "INSERT");
         return todoService.create(todo);
     }
 
@@ -45,6 +47,7 @@ public class TodoController {
 
     @PutMapping
     public Todo updateTodo(@RequestBody Todo todo) {
+        ((AuditLoggable)todoService).auditLog(todo, "UPDATE");
         return todoService.update(todo);
     }
 
