@@ -1,6 +1,7 @@
 package io.educative.controllers;
 
 import io.educative.domains.Todo;
+import io.educative.services.NationalityWebClientService;
 import io.educative.services.TodoService;
 import io.educative.services.TodoTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class TodoController {
 
     private TodoService todoService;
     private TodoTypeService todoTypeService;
+
+    @Autowired
+    private NationalityWebClientService nationalityService;
 
     @Autowired
     public TodoController(TodoService todoService, TodoTypeService todoTypeService) {
@@ -58,6 +62,12 @@ public class TodoController {
     @GetMapping()
     public List<Todo> findAll(@RequestParam String sort, @RequestParam String order, @RequestParam int pageNumber, @RequestParam int numOfRecords) {
         return todoService.findAll(sort, Sort.Direction.fromString(order), pageNumber, numOfRecords);
+    }
+
+    @GetMapping(value = "predict")
+    public String predict() {
+        System.out.println(nationalityService.predictNationality("https://api.nationalize.io", "john").block());
+        return "OK";
     }
 
 }
