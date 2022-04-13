@@ -4,11 +4,7 @@ import io.educative.services.NationalityWebClientService;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Assert;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -37,7 +33,7 @@ public class NationalityWebClientServiceIntegrationTest {
     }
 
     @Test
-    public void givenWebServerIsMocked_whenPredictNationality2_thenReceiveTheResponse() throws InterruptedException {
+    public void givenWebServerIsMocked_whenPredictNationality_thenReceiveTheResponse() throws InterruptedException {
         String baseUrl = String.format("http://127.0.0.1:%s", webServer.getPort());
 
         String expectedResp = "{\"name\":\"john\",\"country\":[{\"country_id\":\"US\",\"probability\":0.048398225615958565},{\"country_id\":\"IM\",\"probability\":0.04438246053773764},{\"country_id\":\"IE\",\"probability\":0.042102085396037124}]}";
@@ -54,8 +50,8 @@ public class NationalityWebClientServiceIntegrationTest {
 
         RecordedRequest recordedRequest = webServer.takeRequest();
 
-        Assert.assertEquals("GET", recordedRequest.getMethod());
-        Assert.assertEquals("/?name=john", recordedRequest.getPath());
+        Assertions.assertEquals("GET", recordedRequest.getMethod());
+        Assertions.assertEquals("/?name=john", recordedRequest.getPath());
     }
 
 }

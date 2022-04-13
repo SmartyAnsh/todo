@@ -3,9 +3,10 @@ package io.educative.unit;
 import io.educative.domains.TodoType;
 import io.educative.repositories.TodoTypeRepository;
 import io.educative.services.TodoTypeService;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import javax.validation.Validator;
 import java.util.Date;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class TodoTypeServiceTest {
         TodoType result = service.findByCode("PERSONAL");
 
         //then
-        Assert.assertEquals(result.getCode(), personal.getCode());
+        Assertions.assertEquals(result.getCode(), personal.getCode());
     }
 
 }

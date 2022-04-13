@@ -4,7 +4,7 @@ import io.educative.domains.Todo;
 import io.educative.repositories.TodoRepository;
 import io.educative.repositories.TodoTypeRepository;
 import io.educative.services.TodoService;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -36,6 +36,6 @@ public class TodoServiceTest {
         Todo result = service.update(doLaundry);
 
         //then
-        Assert.assertNotNull(result.getDateDone());
+        Assertions.assertNotNull(result.getDateDone());
     }
 }

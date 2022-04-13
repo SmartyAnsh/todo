@@ -4,7 +4,7 @@ import io.educative.domains.Todo;
 import io.educative.domains.TodoType;
 import io.educative.repositories.TodoRepository;
 import io.educative.repositories.TodoTypeRepository;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -40,7 +40,7 @@ public class TodoRepositoryIntegrationTest {
         Todo found = todoRepository.findByTitle(doLaundry.getTitle());
 
         // then
-        Assert.assertEquals(found.getTitle(), doLaundry.getTitle());
+        Assertions.assertEquals(found.getTitle(), doLaundry.getTitle());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class TodoRepositoryIntegrationTest {
         List<Todo> found = todoRepository.findAllByType(personal);
 
         // then
-        Assert.assertArrayEquals(found.toArray(), todos);
+        Assertions.assertArrayEquals(found.toArray(), todos);
     }
 
 }
