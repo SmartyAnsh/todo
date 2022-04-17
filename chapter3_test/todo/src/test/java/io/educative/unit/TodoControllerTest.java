@@ -2,7 +2,6 @@ package io.educative.unit;
 
 import io.educative.controllers.TodoController;
 import io.educative.domains.Todo;
-import io.educative.services.NationalityWebClientService;
 import io.educative.services.TodoService;
 import io.educative.services.TodoTypeService;
 import org.junit.jupiter.api.Test;
@@ -31,9 +30,6 @@ public class TodoControllerTest {
 
     @MockBean
     private TodoTypeService todoTypeService;
-
-    @MockBean
-    private NationalityWebClientService nationalityService;
 
     @Test
     public void givenTodo_whenGetTodo_thenReturnJson() throws Exception {

@@ -36,13 +36,13 @@ public class NationalityWebClientServiceIntegrationTest {
     public void givenWebServerIsMocked_whenPredictNationality_thenReceiveTheResponse() throws InterruptedException {
         String baseUrl = String.format("http://127.0.0.1:%s", webServer.getPort());
 
-        String expectedResp = "{\"name\":\"john\",\"country\":[{\"country_id\":\"US\",\"probability\":0.048398225615958565},{\"country_id\":\"IM\",\"probability\":0.04438246053773764},{\"country_id\":\"IE\",\"probability\":0.042102085396037124}]}";
+        String expectedResp = "{'name':'anshul','country':[{'country_id':'IN','probability':1}]}";
 
         webServer.enqueue(new MockResponse()
                 .setBody(expectedResp)
                 .addHeader("Content-Type", "application/json"));
 
-        Mono<String> stringMono = nationalityService.predictNationality(baseUrl, "john");
+        Mono<String> stringMono = nationalityService.predictNationality(baseUrl, "anshul");
 
         StepVerifier.create(stringMono)
                 .expectNextMatches(resp -> resp.toLowerCase().equals(expectedResp.toLowerCase()))
@@ -51,7 +51,7 @@ public class NationalityWebClientServiceIntegrationTest {
         RecordedRequest recordedRequest = webServer.takeRequest();
 
         Assertions.assertEquals("GET", recordedRequest.getMethod());
-        Assertions.assertEquals("/?name=john", recordedRequest.getPath());
+        Assertions.assertEquals("/?name=anshul", recordedRequest.getPath());
     }
 
 }

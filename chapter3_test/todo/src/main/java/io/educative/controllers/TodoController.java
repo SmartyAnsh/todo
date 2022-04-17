@@ -21,9 +21,6 @@ public class TodoController {
     private TodoTypeService todoTypeService;
 
     @Autowired
-    private NationalityWebClientService nationalityService;
-
-    @Autowired
     public TodoController(TodoService todoService, TodoTypeService todoTypeService) {
         this.todoService = todoService;
         this.todoTypeService = todoTypeService;
@@ -62,12 +59,6 @@ public class TodoController {
     @GetMapping()
     public List<Todo> findAll(@RequestParam String sort, @RequestParam String order, @RequestParam int pageNumber, @RequestParam int numOfRecords) {
         return todoService.findAll(sort, Sort.Direction.fromString(order), pageNumber, numOfRecords);
-    }
-
-    @GetMapping(value = "predict")
-    public String predict() {
-        System.out.println(nationalityService.predictNationality("https://api.nationalize.io", "john").block());
-        return "OK";
     }
 
 }

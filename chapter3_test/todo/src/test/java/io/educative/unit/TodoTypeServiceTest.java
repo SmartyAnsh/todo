@@ -21,7 +21,7 @@ public class TodoTypeServiceTest {
     private TodoTypeService service = new TodoTypeService(todoTypeRepository, validator);
 
     @Test
-    void whenRead_thenReturnTodoType() {
+    void givenMockedFindById_whenReadTodoType_thenReturnTodoType() {
         TodoType personal = new TodoType();
         personal.setCode("PERSONAL");
         personal.setDateCreated(new Date());

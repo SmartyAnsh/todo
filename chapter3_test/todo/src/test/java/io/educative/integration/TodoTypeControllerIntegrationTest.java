@@ -1,10 +1,10 @@
 package io.educative.integration;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.educative.domains.TodoType;
 import io.educative.services.TodoTypeService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,10 +28,11 @@ public class TodoTypeControllerIntegrationTest {
     @Autowired
     private TodoTypeService todoTypeService;
 
+    @BeforeEach
     void createTodoType() throws Exception {
         TodoType personal = new TodoType();
         personal.setCode("PERSONAL");
-        personal.setDescription("Todo Type for Personal Work 123");
+        personal.setDescription("Todo Type for Personal Work");
 
         mockMvc.perform(post("/api/todoType")
                         .contentType("application/json")
@@ -56,8 +57,6 @@ public class TodoTypeControllerIntegrationTest {
 
     @Test
     void testTodoTypeReadThroughAllLayers() throws Exception {
-        createTodoType();
-
         MvcResult result = mockMvc.perform(get("/api/todoType/PERSONAL")
                         .contentType("application/json"))
                 .andReturn();

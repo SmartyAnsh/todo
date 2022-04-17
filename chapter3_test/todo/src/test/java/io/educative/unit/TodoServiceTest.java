@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import javax.validation.Validator;
 import java.util.Date;
 
-
 public class TodoServiceTest {
 
     private TodoRepository todoRepository = Mockito.mock(TodoRepository.class);

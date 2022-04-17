@@ -26,7 +26,7 @@ public class TodoRepositoryIntegrationTest {
     private TodoTypeRepository todoTypeRepository;
 
     @Test
-    public void whenFindByTitle_thenReturnTodo() {
+    public void givenTodoObjIsPersisted_whenFindByTitle_thenReturnTodoObj() {
         // given
         Todo doLaundry = new Todo();
         doLaundry.setTitle("Do Laundry");
