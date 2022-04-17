@@ -1,4 +1,4 @@
-package io.educative.unit;
+package io.educative.integration;
 
 import io.educative.controllers.TodoController;
 import io.educative.domains.Todo;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TodoController.class)
-public class TodoControllerTest {
+public class TodoControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;

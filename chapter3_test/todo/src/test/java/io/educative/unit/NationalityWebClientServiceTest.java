@@ -1,4 +1,4 @@
-package io.educative.integration;
+package io.educative.unit;
 
 import io.educative.services.NationalityWebClientService;
 import okhttp3.mockwebserver.MockResponse;
@@ -10,7 +10,7 @@ import reactor.test.StepVerifier;
 
 import java.io.IOException;
 
-public class NationalityWebClientServiceIntegrationTest {
+public class NationalityWebClientServiceTest {
 
     private static MockWebServer webServer;
 
