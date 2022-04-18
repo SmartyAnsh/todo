@@ -26,6 +26,21 @@ public class TodoRepositoryIntegrationTest {
     private TodoTypeRepository todoTypeRepository;
 
     @Test
+    public void whenTodoObjIsSaved_thenTodoObjIsPersisted() {
+        // given
+        Todo doLaundry = new Todo();
+        doLaundry.setTitle("Do Laundry");
+        doLaundry.setDateCreated(new Date());
+        doLaundry.setDueDate(new Date());
+
+        // when
+        todoRepository.save(doLaundry);
+
+        // then
+        Assertions.assertEquals(todoRepository.findById(doLaundry.getId()).get(), doLaundry);
+    }
+
+    @Test
     public void givenTodoObjIsPersisted_whenFindByTitle_thenReturnTodoObj() {
         // given
         Todo doLaundry = new Todo();
