@@ -47,12 +47,14 @@ public class AssertJAssertions {
 
     @Test
     void assertionForMap() {
+        //given
         Map<Integer, String> customerInfo = new HashMap<>();
         customerInfo.put(1, "Anshul");
         customerInfo.put(2, "Ankit");
         customerInfo.put(3, "Mike");
         customerInfo.put(4, "Salman");
 
+        //when-then
         assertThat(customerInfo).containsEntry(2, "Ankit");
         assertThat(customerInfo).doesNotContainKey(6);
         assertThat(customerInfo).containsValues("Salman", "Anshul");
@@ -82,8 +84,10 @@ public class AssertJAssertions {
 
     @Test
     void assertionForLocalDateTime() {
+        //given
         LocalDateTime now = LocalDateTime.now();
 
+        //when-then
         assertThat(now).isBefore(LocalDateTime.now());
         assertThat(now).isInstanceOf(LocalDateTime.class);
         assertThat(now).isStrictlyBetween(now.minusSeconds(10), now.plusSeconds(100));
