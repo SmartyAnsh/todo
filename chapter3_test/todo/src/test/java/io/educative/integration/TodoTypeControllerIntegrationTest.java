@@ -86,7 +86,7 @@ public class TodoTypeControllerIntegrationTest {
     void testTodoTypeDeleteThroughAllLayers() throws Exception {
         mockMvc.perform(delete("/api/todoType/PERSONAL")
                         .contentType("application/json"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOk());
     }
 
 }
