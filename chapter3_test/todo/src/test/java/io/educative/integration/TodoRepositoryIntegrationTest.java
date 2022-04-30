@@ -37,7 +37,7 @@ public class TodoRepositoryIntegrationTest {
         todoRepository.save(doLaundry);
 
         // then
-        Assertions.assertEquals(todoRepository.findById(doLaundry.getId()).get(), doLaundry);
+        Assertions.assertEquals(doLaundry, todoRepository.findById(doLaundry.getId()).get());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class TodoRepositoryIntegrationTest {
         Todo found = todoRepository.findByTitle(doLaundry.getTitle());
 
         // then
-        Assertions.assertEquals(found.getTitle(), doLaundry.getTitle());
+        Assertions.assertEquals(doLaundry.getTitle(), found.getTitle());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class TodoRepositoryIntegrationTest {
         List<Todo> found = todoRepository.findAllByType(personal);
 
         // then
-        Assertions.assertArrayEquals(found.toArray(), todos);
+        Assertions.assertArrayEquals(todos, found.toArray());
     }
 
 }

@@ -34,7 +34,7 @@ public class TodoTypeServiceTest {
         TodoType result = service.findByCode("PERSONAL");
 
         //then
-        Assertions.assertEquals(result.getCode(), personal.getCode());
+        Assertions.assertEquals(personal.getCode(), result.getCode());
     }
 
 }
