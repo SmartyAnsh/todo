@@ -59,7 +59,7 @@ public class TodoRepositoryIntegrationTest {
     }
 
     @Test
-    public void whenFindAllByTitle_thenReturnAllTodos() {
+    public void whenFindAllByType_thenReturnAllTodos() {
         // given
         TodoType personal = new TodoType();
         personal.setCode("PERSONAL");
