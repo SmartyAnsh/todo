@@ -1,4 +1,4 @@
-= Todo Application Spring REST Docs
+= Todo Application API Docs
 
 TodoType
 
@@ -13,8 +13,6 @@ include::{snippets}/post-todo-type/http-request.adoc[]
 .response
 include::{snippets}/post-todo-type/http-response.adoc[]
 
-////
-
 GET http://localhost:8080/api/todoType/{code}:
 
 .request
@@ -22,5 +20,3 @@ include::{snippets}/get-todo-type/http-request.adoc[]
 
 .response
 include::{snippets}/get-todo-type/http-response.adoc[]
-////
-
