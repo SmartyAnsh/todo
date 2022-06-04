@@ -37,15 +37,14 @@ public class TodoTypeAPIDocumentationTest {
     @MockBean
     private TodoTypeService todoTypeService;
 
+    private TodoType personal = new TodoType("PERSONAL", "Todo Type for Personal Work");
+
     @Test
     public void contextLoads() {
     }
 
     @Test
     public void postTodoType() throws Exception {
-        TodoType personal = new TodoType();
-        personal.setCode("PERSONAL");
-        personal.setDescription("Todo Type for Personal Work");
         given(todoTypeService.create(personal)).willReturn(personal);
 
         ConstraintDescriptions desc = new ConstraintDescriptions(TodoType.class);
@@ -64,10 +63,6 @@ public class TodoTypeAPIDocumentationTest {
 
     @Test
     public void getTodoType() throws Exception {
-        TodoType personal = new TodoType();
-        personal.setCode("PERSONAL");
-        personal.setDescription("Todo Type for Personal Work");
-
         given(todoTypeService.findByCode("PERSONAL")).willReturn(personal);
 
         this.mockMvc.perform(get("/api/todoType/PERSONAL"))
