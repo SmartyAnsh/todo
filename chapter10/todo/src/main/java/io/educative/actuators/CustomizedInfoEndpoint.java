@@ -11,19 +11,20 @@ import java.util.Map;
 
 @Component
 @EndpointWebExtension(endpoint = InfoEndpoint.class)
-public class InfoEndpointExtension {
+public class CustomizedInfoEndpoint {
 
-    private InfoEndpoint delegate;
+    private InfoEndpoint infoEndpoint;
 
-    public InfoEndpointExtension(InfoEndpoint infoEndpoint) {
-        this.delegate = infoEndpoint;
+    public CustomizedInfoEndpoint(InfoEndpoint infoEndpoint) {
+        this.infoEndpoint = infoEndpoint;
     }
 
     @ReadOperation
     public WebEndpointResponse<Map> info() {
-        Map<String, Object> info = this.delegate.info();
+        Map<String, Object> info = this.infoEndpoint.info();
         String apiInfo = new APIInfoEndpoint().apiInfo();
 
+        //copying unmodifiableMap into the local map
         HashMap<String, Object> modifiableInfo = new HashMap<>();
         info.keySet().forEach(stringObjectEntry -> modifiableInfo.put(stringObjectEntry, info.get(stringObjectEntry)));
 
