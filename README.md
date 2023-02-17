@@ -1,6 +1,6 @@
 # Todo Applications 
 
-"REST APIs with Spring, JPA, and Springfox" course on http://educative.io
+[REST APIs with Spring, JPA, and Springfox](https://www.educative.io/courses/rest-api-with-spring-jpa-and-springfox) course on http://educative.io
 
 Chapter-wise todo app for the course
 
